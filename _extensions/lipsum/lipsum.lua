@@ -15,19 +15,24 @@ local function read_file(path)
 end
 
 -- read lipsum data
-function readLipsum() 
-  if lipsum == nil then
-    local file = quarto.utils.resolve_path("lipsum.json")
-    local fileContents = read_file(file)
-    if fileContents ~= nil then
-      local json = quarto.json.decode(fileContents)
-      lipsum = json
-    else 
-      quarto.log.error("Unable to read lipsum data file.")
-      lipsum = {}
-    end
-  end
-  return lipsum
+function readLipsum(lang)
+  -- if lipsum == nil then
+  --   local file = quarto.utils.resolve_path("lipsum.json")
+  --   local fileContents = read_file(file)
+  --   if fileContents ~= nil then
+  --     local json = quarto.json.decode(fileContents)
+  --     lipsum = json
+  --   else 
+  --     quarto.log.error("Unable to read lipsum data file.")
+  --     lipsum = {}
+  --   end
+  -- end
+  -- return lipsum
+  local lang1 = lang or "en"
+  local file = quarto.utils.resolve_path("lipsum-" .. lang1 .. ".json")
+  local fileContents = read_file(file)
+  return quarto.json.decode(fileContents)
+  -- return {}
 end
 
 local rangePattern = '(%d+)%-(%d+)'
@@ -67,7 +72,7 @@ return {
       end
     end
 
-    local paras = readLipsum();
+    local paras = readLipsum(args[2]);
     local outputParas = {}
 
     local count = paraEnd - paraStart + 1

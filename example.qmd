@@ -2,7 +2,12 @@
 title: "Lipsum Example"
 format:
   html: default
-  pdf: default
+  pdf:
+    include-in-header:
+      - text: |
+          \usepackage{xeCJK}
+          \usepackage{fontspec}
+          \setCJKmonofont{STFangsong}
 ---
 
 ## Lipsum
@@ -13,8 +18,10 @@ This extension produces placeholder text that is useful for generating sample do
 
 {{< lipsum 2 >}}
 
+{{< lipsum 5 zh >}}
+
 ## First 4 Paragraphs of Lipsum
 
-{{< lipsum 1-4 >}}
+{{< lipsum 4 jp >}}
 
 
